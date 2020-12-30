@@ -7,47 +7,47 @@ const cevapOlustur=function(res,status,content){
 
 }
 
-const mekanlariListele= async(req, res) =>{
-	//URLden enlem ve boylam parametrelerini al
-	var boylam= parseFloat(req.query.boylam);
-	var enlem= parseFloat(req.query.enlem);
-	//alınan bilgilerden nokta tanımlama
-	var nokta = {
-		type: "point",
-		coordinates: [enlem, boylam]
-	};//coğrafi seçenekleri ekle
-	var geoOptions = {
-		discanteField: "mesafe",
-		spherical: true,
-		key:"koordinatlar"
-	};
-	if(!enlem || !boylam) {
-		cevapOlustur(res, 404, {"mesaj": "enlem ve boylam zorunlu parametreler"});
-		return;
-	}
-	    try{
-	    	const sonuc= await Mekan.aggregate([
-	    	{
-	    		$geoNear: {
-	    			near: nokta,
-	    			...geoOptions
-	    		}
-	    	}
-	    	]);
-	    	const mekanlar= sonuc.map(mekan=> {return {
-	    		_id: mekan._id,
-	    		ad: mekan.ad,
-	    		adres: mekan.adres,
-	    		puan: mekan.puan,
-	    		imkanlar: mekan.imkanlar,
-	    		mesafe: mekan.mesafe.toFixed()+'m',
-	    	} });
-	    	cevapOlustur (res, 200, mekanlar);
-	    }
-	    catch(e){
-	    	console.log(e);
-	    	cevapOlustur (res, 404, e);
-	    }
+const mekanlariListele=async(req,res) =>{
+    //url'den enlem ve boylam parametrelerini al
+    var boylam= parseFloat(req.query.boylam);
+    var enlem = parseFloat(req.query.enlem);
+    //alınan bilgilerden nokta tanımla
+    var nokta = {
+        type: "Point",
+        coordinates: [enlem,boylam]
+    };//coğrafi seçenekleri ekle
+    var geoOptions={
+        distanceField: "mesafe",
+        spherical: true,//arama küresl
+        key:"koordinatlar"
+    };
+    if(!enlem || !boylam){
+        cevapOlustur(res,404,{"mesaj":"enlem ve boylam zorunlu parametrelerdir"});
+        return;
+    }
+    try{
+        const sonuc= await Mekan.aggregate([
+        {
+            $geoNear: {
+                near:nokta,
+                ...geoOptions
+            }
+        }
+        ]);
+        const mekanlar= sonuc.map(mekan=> { return {
+            _id: mekan._id,
+            ad: mekan.ad,
+            adres: mekan.adres,
+            puan: mekan.puan,
+            imkanlar: mekan.imkanlar,
+            mesafe: mekan.mesafe.toFixed()+"m",
+        }});
+        cevapOlustur(res,200,mekanlar);
+    }
+    catch(e){
+        console.log(e);
+        cevapOlustur(res,404,e);
+    }
 }
 
 const mekanEkle=function(req, res) {

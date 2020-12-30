@@ -25,7 +25,7 @@ var mekanSema = new mongoose.Schema(
     { 
         ad:{type:String,required:true},
         adres:String,
-        puan:{type:Number, default:0,min:0,max:5},
+        puan:{type:Number, "default":0,min:0,max:5},
         imkanlar:[String],
         koordinatlar:{type:[Number],index:'2dsphere'},
         saatler:[saatSema],
