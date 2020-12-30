@@ -1,10 +1,11 @@
 //var express = require('express');
 //var router = express.Router();
-
+var footer="Sevval Yuksek 2020"
 //ana sayfayı yöneten metot
 const anaSayfa=function(req, res, next) {
 	res.render('mekanlar-liste',
 	 { 'baslik' : 'Anasayfa',
+	   'footer': footer,
 	   'sayfaBaslik' : {
 	   	  'siteAd':'Mekan32',
 	   	  'aciklama': 'Isparta civarındaki mekanları keşfedin!'
@@ -53,6 +54,7 @@ const anaSayfa=function(req, res, next) {
 const mekanBilgisi=function(req, res, next){
 	res.render('mekan-detay',{
 	   'baslik' : 'Mekan Bilgisi',
+	   'footer': footer,
 	   'sayfaBaslik' : 'Starbucks',
 	   'mekanBilgisi' :{
 	        'ad':'Starbucks',
