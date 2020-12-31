@@ -191,7 +191,7 @@ const yorumSil=function(req, res) {
 							cevapOlustur(res, 404, hata);
 					} else {
 						ortalamaPuanGuncelle(mekan._id);
-						cevapOlustur(res, 200, null);
+						cevapOlustur(res, 204, null);
 					}
 					});
 				}
