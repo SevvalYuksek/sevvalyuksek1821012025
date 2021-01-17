@@ -1,5 +1,6 @@
 var mongoose=require('mongoose')
 var Mekan=mongoose.model('mekan')
+
 const cevapOlustur=function(res,status,content){
 	res
 	.status(status)
@@ -19,7 +20,8 @@ const mekanlariListele=async(req,res) =>{
     var geoOptions={
         distanceField: "mesafe",
         spherical: true,//arama küresl
-        key:"koordinatlar"
+        key:"koordinatlar",
+        maxDistance:20000
     };
     if(!enlem || !boylam){
         cevapOlustur(res,404,{"mesaj":"enlem ve boylam zorunlu parametrelerdir"});
@@ -40,7 +42,7 @@ const mekanlariListele=async(req,res) =>{
             adres: mekan.adres,
             puan: mekan.puan,
             imkanlar: mekan.imkanlar,
-            mesafe: mekan.mesafe.toFixed()+"m",
+            mesafe: mekan.mesafe.toFixed(),
         }});
         cevapOlustur(res,200,mekanlar);
     }

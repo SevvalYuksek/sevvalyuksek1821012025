@@ -8,9 +8,10 @@ var ctrlDigerleri=require('../controllers/digerleri');
 //anasayfa rotası
 router.get('/', ctrlMekanlar.anaSayfa);
 //mekan bilgisi rotası
-router.get('/mekan', ctrlMekanlar.mekanBilgisi);
+router.get('/mekan/:mekanid', ctrlMekanlar.mekanBilgisi);
 //yeni yorum rotası
-router.get('/mekan/yorum/yeni', ctrlMekanlar.yorumEkle);
+router.get('/mekan/:mekanid/yorum/yeni', ctrlMekanlar.yorumEkle);
+router.post('/mekan/:mekanid/yorum/yeni', ctrlMekanlar.yorumumuEkle);
 //hakkında rotası
 router.get('/hakkinda', ctrlDigerleri.hakkinda);
 
