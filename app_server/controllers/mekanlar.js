@@ -1,6 +1,7 @@
+var express =require("express");
 var request = require('postman-request');
 var apiSecenekleri = {
-	sunucu: "http://https://sevvalyuksek1821012025.herokuapp.com",
+	sunucu: "http://localhost:3000",
 	apiYolu: '/api/mekanlar/'
 }
 var istekSecenekleri
