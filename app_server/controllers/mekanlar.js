@@ -1,7 +1,6 @@
-var express =require("express");
 var request = require('postman-request');
 var apiSecenekleri = {
-	sunucu: "http://localhost:3000",
+	sunucu: "https://sevvalyuksek1821012025.herokuapp.com",
 	apiYolu: '/api/mekanlar/'
 }
 var istekSecenekleri
@@ -103,15 +102,14 @@ var hataGoster = function(req,res,durum){
 var mekanBilgisiGetir=function(req,res,callback){
 	//istek seçenekleri ayarla
 	istekSecenekleri={
-		url:apiSecenekleri.sunucu + apiSecenekleri.apiYolu + req.params.mekanid, 
-		method:"GET", 
-		json:{},
+		url:apiSecenekleri.sunucu + apiSecenekleri.apiYolu + req.params.mekanid, //yol
+		method:"GET", //Veri çekicez
+		json:{},//dönen veri json formatında
 	};
 	request(
 		istekSecenekleri,
 		function(hata,cevap,mekanDetaylari){
 			var gelenMekan=mekanDetaylari;
-			//enlem,boylam bir dizi şeklinde bunu ayır ilk enlem
 			if(cevap.statusCode==200){
 			gelenMekan.koordinatlar={
 				enlem:mekanDetaylari.koordinatlar[0],
@@ -123,6 +121,7 @@ var mekanBilgisiGetir=function(req,res,callback){
 		}
 		});
 }
+
 const mekanBilgisi=function(req,res,callback){
 	mekanBilgisiGetir(req,res,function(req,res,cevap){
 		detaySayfasiOlustur(req,res,cevap);

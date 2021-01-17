@@ -46,7 +46,7 @@ block content
     .panel.panel-primary.review-panel
       .panel-heading
         -var mekanid=mekanBilgisi._id
-        a.btn.btn-default.pull-right(href='/mekan/' +mekanid+ '/yorum/yeni') Yorum Ekle
+        a.btn.btn-default.pull-right(href='/mekan/'+mekanid+'/yorum/yeni') Yorum Ekle
         h2.panel-title Müşteri Yorumları
       .panel-body.review-container
        each yorum in mekanBilgisi.yorumlar
@@ -55,9 +55,9 @@ block content
           .well.well-sm.review-header
             span.rating
              +puanOlustur(yorum.puan)
-            span.reviewAuthor=yorum.yorumYapan
-            | &nbsp; 
+            span.reviewAuthor= yorum.yorumYapan
+            | &nbsp;
             small.reviewTimestamp
-              +tarihiFormatla(yorum.tarih)
+               +tarihiFormatla(yorum.tarih)
           .col-xs-12
              p=yorum.yorumMetni
